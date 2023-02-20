@@ -371,9 +371,16 @@ function initCanvas(elem){
 
             setPose(li);
 
+            const img = new Image();
             const fileReader = new FileReader();
             fileReader.onload = function() {
                 const dataUri = this.result;
+                img.src = this.result
+                img.onload = function (){
+                    result = {width: img.naturalWidth, height: img.naturalHeight};
+                    console.log(result);
+                    resizeCanvas(img.naturalWidth, img.naturalHeight)
+                }
                 canvas.setBackgroundImage(dataUri, canvas.renderAll.bind(canvas), {
                     opacity: 0.5
                 });
